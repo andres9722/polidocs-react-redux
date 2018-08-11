@@ -1,0 +1,156 @@
+@import "../../Shared/variables.scss";
+@import "../../Shared/mixins.scss";
+
+.header {
+  background: color(primary-dark);
+  padding: 0 8px;
+  
+  &__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+
+    .logo {
+      
+      &__link {
+        color: color(white);
+      }
+    }
+
+    .hamburger {
+      position: relative;
+
+      @include from($large) {
+        display: none;
+      }
+
+      &::before {
+        content: "";
+        width: 28px;
+        height: 2px;
+        position: absolute;
+        top: -8px;
+        right: 0;
+        background: color(white);
+        transition: transform .4s ease;
+      }
+
+      &::after {
+        content: "";
+        width: 28px;
+        height: 2px;
+        position: absolute;
+        top: 8px;
+        right: 0;
+        transition: transform .4s ease;
+        background: color(white);
+      }
+
+      &__next {
+        &::after {
+          content: "";
+          width: 25px;
+          height: 2px;
+          position: absolute;
+          top: 0;
+          right: 0;
+          background: color(white);
+        }
+      }
+
+      &--animated {
+
+        &::before {
+          transform: rotate(45deg);
+          top: 0;
+        }
+
+        &::after {
+          transform: rotate(-45deg);
+          top: 0;
+        }
+
+        .hamburger__next {
+          opacity: 0;
+        }
+      }
+    }
+
+    .nav {
+      position: fixed;
+      top: 60px;
+      left: 0;
+      width: 80%;
+      height: 100vh;
+      background: color(white);
+      padding: 0 8px;
+      border-right: 1px solid color(border-color);
+      transform: translate(-100%);
+      transition: transform .5s ease;
+      z-index: 10;
+
+      @include from($large) {
+        position: relative;
+        height: 60px;
+        transform: translate(0);
+        top: 0;
+        padding: 0;
+        background: transparent;
+        border: 0;
+      }
+
+      .menu {
+        display: flex;
+        flex-direction: column;
+        padding-top: 16px;
+        height: 60px;
+
+        @include from($large) {
+          flex-direction: row;
+          align-items: center;
+          padding: 0;
+          position: absolute;
+          right: 0;
+        }
+        
+        &__item {
+          padding: 8px 0;
+          margin-bottom: 12px;
+          border-bottom: 1px solid color(border-color);
+
+          @include from($large) {
+            border: 0;
+            padding: 0;
+            margin: 0 24px;
+
+            &:last-child {
+              margin: 0;
+              padding: 4px 16px;
+              margin-left: 32px;
+              border-radius: 5px;
+              background: color(primary-light);
+            }
+          }
+        }
+        
+        &__link {
+          color: color(font-color);
+
+          @include from($large) {
+            color: color(white);
+            padding: 4px 0;
+
+            &--active {
+              border-top: 2px solid white;
+            }
+          }
+        }
+      }
+
+      &--show {
+        transform: translate(0);
+      }
+    }
+  }
+}
